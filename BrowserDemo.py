@@ -8,9 +8,9 @@ from selenium.webdriver.chrome.service import Service
 # service_obj = Service("./chromedriver") # Need to pass chrome driver path
 # driver = webdriver.Chrome(service=service_obj)
 
-driver = webdriver.Chrome() # chrome driver initiation
 # driver = webdriver.Firefox()  # firefox driver initiation
 # driver = webdriver.Edge()   # edge driver initiation
+driver = webdriver.Chrome()  # chrome driver initiation
 driver.implicitly_wait(10)
 driver.maximize_window()
 driver.get("https://www.google.com")
