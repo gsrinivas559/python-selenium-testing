@@ -4,7 +4,7 @@ from selenium.webdriver.common.by import By
 driver = webdriver.Chrome()  # chrome driver initiation
 driver.implicitly_wait(5)  # globally wait applied
 driver.maximize_window()
-driver.get("https://the-internet.herokuapp.com/nested_frames")  # testing rahul shetty practice page
+driver.get("https://the-internet.herokuapp.com/nested_frames")  # testing automation practice page
 
 #  Scenario - switching between nested frames
 driver.switch_to.frame("frame-top")
