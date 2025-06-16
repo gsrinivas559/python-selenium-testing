@@ -20,6 +20,10 @@ time.sleep(2)  # To visually view the output
 driver.execute_script("document.documentElement.scrollTop = 0;")
 time.sleep(2)  # To visually view the output
 
+# to pass value on element
+driver.execute_script("arguments[0].value='Srinivas';", driver.find_element(By.CSS_SELECTOR, "#name"))
+time.sleep(2)  # To visually view the output
+
 element = driver.find_element(By.CSS_SELECTOR, ".mouse-hover")
 # scroll to specific element
 driver.execute_script("arguments[0].scrollIntoView(true);", element)
