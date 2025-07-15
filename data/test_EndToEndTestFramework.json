@@ -1,0 +1,17 @@
+{
+  "data": [
+    {
+      "username" : "rahulshettyacademy",
+      "password" : "learning",
+      "product"  : "Nokia Edge",
+      "country"  : "India"
+    },
+
+    {
+      "username" : "rahulshettyacademy",
+      "password" : "learning",
+      "product"  : "Blackberry",
+      "country"  : "India"
+    }
+  ]
+}

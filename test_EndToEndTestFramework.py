@@ -1,36 +1,27 @@
-from time import sleep
+import json
+import os.path
 
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions
-from selenium.webdriver.support.wait import WebDriverWait
+import pytest
+
+from pageObjects.LoginPage import LoginPage
+
+# Scenario - login and select a product from product list, checkout and purchase the product in the shop
+# test_data_path = os.path.dirname(os.path.realpath(__file__))
+projectPath = os.getcwd()
+jsonFilePath = projectPath + "\\data\\test_EndToEndTestFramework.json"
+with open(jsonFilePath) as f:
+    # converting json data to python object
+    test_data = json.load(f)
+    test_list = test_data["data"]
 
 
-def test_EndToEnd(browserInstance):
+@pytest.mark.parametrize("test_list_item", test_list)
+def test_EndToEnd(browserInstance, test_list_item):
     driver = browserInstance
-    driver.implicitly_wait(5)  # globally wait applied
-    driver.maximize_window()
-    driver.get("https://rahulshettyacademy.com/loginpagePractise/")  # testing rahul shetty practice page
-    driver.find_element(By.CSS_SELECTOR, "#username").send_keys("rahulshettyacademy")
-    driver.find_element(By.CSS_SELECTOR, "#password").send_keys("learning")
-    driver.find_element(By.CSS_SELECTOR, "#signInBtn").click()
-    # Scenario - select a product from product list, checkout and purchase the product in the shop
-    driver.find_element(By.CSS_SELECTOR, "a[href*='shop']").click()
-    productToSelect = "Nokia Edge"
-    productElements = driver.find_elements(By.CSS_SELECTOR, "div.card")
-    for productElement in productElements:
-        productTitle = productElement.find_element(By.CSS_SELECTOR, ".card-title a").text
-        if productTitle == productToSelect:
-            productElement.find_element(By.CSS_SELECTOR, ".card-footer button").click()
-
-    driver.find_element(By.CSS_SELECTOR, "a.btn-primary").click()
-    sleep(2)  # To visually view the output
-    driver.find_element(By.CSS_SELECTOR, "button.btn-success").click()
-    countryToSelect = "India"
-    driver.find_element(By.CSS_SELECTOR, "#country").send_keys(countryToSelect)
-    wait = WebDriverWait(driver, 10)
-    wait.until(expected_conditions.presence_of_element_located((By.LINK_TEXT, countryToSelect)))
-    driver.find_element(By.LINK_TEXT, countryToSelect).click()
-    driver.find_element(By.CSS_SELECTOR, "div.checkbox label").click()
-    driver.find_element(By.CSS_SELECTOR, "input[value='Purchase']").click()
-    alertMessage = driver.find_element(By.CSS_SELECTOR, "div.alert").text
-    assert "Success!" in alertMessage
+    loginPage = LoginPage(driver)
+    shopPage = loginPage.login(test_list_item["username"], test_list_item["password"])
+    shopPage.add_product_to_cart(test_list_item["product"])
+    checkoutConfirmationPage = shopPage.goToCart()
+    checkoutConfirmationPage.checkout()
+    checkoutConfirmationPage.enter_delivery_address(test_list_item["country"])
+    checkoutConfirmationPage.validate_order()

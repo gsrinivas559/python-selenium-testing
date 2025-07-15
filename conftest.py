@@ -12,6 +12,10 @@ def browserInstance(request):
     if browserName == "chrome":
         driver = webdriver.Chrome()  # chrome driver initiation
     elif browserName == "edge":
-        driver = webdriver.Edge()  # chrome driver initiation
+        driver = webdriver.Edge()  # edge driver initiation
+
+    driver.implicitly_wait(5)  # globally wait applied
+    driver.maximize_window()
+    driver.get("https://rahulshettyacademy.com/loginpagePractise/")  # testing rahul shetty practice page
     yield driver  # before test function execution
     driver.close()  # post test function execution
