@@ -9,7 +9,7 @@
 
     {
       "username" : "rahulshettyacademy",
-      "password" : "learning",
+      "password" : "wrong_credentials",
       "product"  : "Blackberry",
       "country"  : "India"
     }

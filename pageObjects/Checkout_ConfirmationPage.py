@@ -2,9 +2,12 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
 
+from utils.BrowserUtils import BrowserUtils
 
-class CheckoutConfirmationPage:
+
+class CheckoutConfirmationPage(BrowserUtils):
     def __init__(self, driver):
+        super().__init__(driver)
         self.driver = driver
         self.checkout_button = (By.CSS_SELECTOR, "button.btn-success")
         self.country_input = (By.CSS_SELECTOR, "#country")
