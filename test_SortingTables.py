@@ -1,6 +1,9 @@
+import pytest
+
 from pageObjects.GreenKartPage import GreenKartPage
 
 
+@pytest.mark.regression
 def test_sortTables(browserInstance):
     driver = browserInstance
     driver.get("https://rahulshettyacademy.com/seleniumPractise/#/offers")  # testing rahul shetty practice page
